@@ -10,8 +10,9 @@ Flow\Autoloader::register();
 
 // Directory definitions
 $userhome = OC_User::getHome(OC_User::getUser());
-$temp = $userhome.'/.flowupload_tmp/';
-$result = '/flowupload/';
+//$temp = $userhome.'/.flowupload_tmp/';
+$temp = '.flowupload_tmp/';
+$result = 'flowupload/';
 
 // Initialize uploader
 $config = new \Flow\Config();
@@ -44,7 +45,7 @@ if (\OC\Files\Filesystem::isValidPath($path)) {
 	}
 
 	// Store file
-	if (\Flow\Basic::save($userhome . "/files/" . $result . $path, $config, $request)) {
+	if (\Flow\Basic::save('localceph://'.$userhome . "/files/" . $result . $path, $config, $request)) {
 
                 // no real copy, file comes from somewhere else, e.g. version rollback -> just update the file cache and the webdav properties without all the other post_write actions
 //                \OC\Files\Cache\Cache::checkUpdate($result . $path);
